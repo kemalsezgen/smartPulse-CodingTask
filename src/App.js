@@ -20,19 +20,22 @@ function App() {
     (data) => data.conract.substring(0, 2) === "PH"
   );
 
+  // sayıların virgülden sonraki kısımlarını düzenleyen fonksiyon
   const roundNumber = (number) => {
     return Math.round(number * 100) / 100;
   };
 
+  // tabloda listelenecek olan tarihi key, bilgileri ise value olarak tutan dictionary
   const PH_VALUES = {};
 
   for (let i = 0; i < filteredData.length; i++) {
-    var toplamIslemMiktari = filteredData[i].quantity / 10
+    var toplamIslemMiktari = filteredData[i].quantity / 10  
     var toplamIslemTutari = filteredData[i].price * toplamIslemMiktari
     var agirlikliOrtFiyat = toplamIslemTutari / toplamIslemMiktari
 
+    // çekilen verideki "date" değerini kullanarak yeni bir date değişkeni oluşturup bu date'in formatını değiştirme
     const date = new Date(filteredData[i].date);
-    const fDate =
+    const fDate =  
       date.getDate() +
       "." +
       (date.getMonth() + 1) +
@@ -53,12 +56,12 @@ function App() {
       filteredData[i].conract.substring(8, 10) +
       ":00"; */
 
-    if (fDate in PH_VALUES) {
+    if (fDate in PH_VALUES) {  // eğer bu date sözlükte key olarak bulunuyorsa value'leri arttır
       PH_VALUES[fDate][0] += toplamIslemMiktari;
       PH_VALUES[fDate][1] += toplamIslemTutari;
       PH_VALUES[fDate][2] += agirlikliOrtFiyat;
     } else {
-      PH_VALUES[fDate] = [
+      PH_VALUES[fDate] = [  // bulunmuyorsa yeni bir key-value oluştur.
         toplamIslemMiktari,
         toplamIslemTutari,
         agirlikliOrtFiyat,
@@ -85,15 +88,16 @@ function App() {
           marginLeft: "auto",
           marginRight: "auto",
           fontSize: "20px",
+          background: "skyblue",
         }}
       >
-        <tr>
+        <tr style={{background:"grey"}}>
           <th>Tarih</th>
           <th>Toplam İşlem Miktarı (MWh)</th>
           <th>Toplam İşlem Tutarı (TL)</th>
           <th>Ağırlık Ortalama Fiyat (TL/MWh)</th>
         </tr>
-        {Object.keys(PH_VALUES).map((key, index) => {
+        {Object.keys(PH_VALUES).map((key, index) => {  // sözlüğün map ile dönülüp değerlerin tabloya yerleştirilmesi
           return (
             <tr key={index}>
               <td>{key}</td>
@@ -104,7 +108,7 @@ function App() {
           );
         })}
       </table>
-      {filteredData.map((data) => {
+      {filteredData.map((data) => { // PH ile başlayan tüm veriler. İncelemek, üzerinde düşünmek için bastırıldı. İsteğe göre yorum satırına alınabilir.
         return (
           <div key={data.id} style={{ border: "1px solid grey" }}>
             <h2>Conract = {data.conract}</h2>
