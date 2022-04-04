@@ -13,24 +13,14 @@ function App() {
   const [startDateValue, setStartDateValue] = useState(startD);
   const [endDateValue, setEndDateValue] = useState(endD);
 
-  const startDText =
-    startDateValue.getFullYear() +
-    "-" +
-    (startDateValue.getMonth() + 1) +
-    "-" +
-    startDateValue.getDate();
-  const endDText =
-    endDateValue.getFullYear() +
-    "-" +
-    (endDateValue.getMonth() + 1) +
-    "-" +
-    endDateValue.getDate();
+  const startDText = startDateValue.getFullYear() + "-" + (startDateValue.getMonth() + 1) + "-" + startDateValue.getDate();
+  const endDText = endDateValue.getFullYear() + "-" + (endDateValue.getMonth() + 1) + "-" + endDateValue.getDate();
 
   // Get request
   useEffect(() => {
     axios
-      .get(
-        `https://seffaflik.epias.com.tr/transparency/service/market/intra-day-trade-history?endDate=${endDText}&startDate=${startDText}`
+      .get( // başlangıç ve bitiş tarihlerini date pickerlar sayesinde dinamik olarak çekiyorum.
+        `https://seffaflik.epias.com.tr/transparency/service/market/intra-day-trade-history?endDate=${endDText}&startDate=${startDText}` 
       )
       .then((res) => setData(res.data.body.intraDayTradeHistoryList))
       .catch((error) => console.log(error));
@@ -89,7 +79,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 style={{color: "#4D5858"}}>smart<span style={{color:"#AEE03F",}}>Pulse</span> - Coding Task</h1>
+      <h1 style={{color: "#4D5858"}}>smart<span style={{color:"#AEE03F"}}>Pulse</span> - Coding Task</h1>
 
       <h3 style={{ border: "1px solid black", marginBottom: "20px" }}>
         Tarihleri parse ederken direkt gelen data içerisindeki "date"
@@ -122,7 +112,7 @@ function App() {
       <Table data={PH_VALUES} />
 
       {/*       {filteredData.map((data) => {
-        // PH ile başlayan tüm veriler. İncelemek, üzerinde düşünmek için bastırıldı. İsteğe göre yorum satırına alınabilir.
+        // PH ile başlayan tüm veriler. İncelemek, üzerinde düşünmek için bastırıldı. İsteğe göre yorum satırına alınıp / kaldırılabilir.
         return (
           <div key={data.id} style={{ border: "1px solid grey" }}>
             <h2>Conract = {data.conract}</h2>

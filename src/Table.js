@@ -18,7 +18,7 @@ const Table = (props) => {
           background: "#AEE03F",
         }}
       >
-        <tr style={{ background: "grey" }}>
+        <tr style={{ background: "green"}}>
           <th>Tarih</th>
           <th>Toplam İşlem Miktarı (MWh)</th>
           <th>Toplam İşlem Tutarı (TL)</th>
